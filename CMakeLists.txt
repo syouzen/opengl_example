@@ -56,9 +56,9 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+add_compile_options(-Wall -g)
 
-# Tutorial 1
+# Example 1
 add_executable(first_window 
 src/first_window/first_window.cc
 )
@@ -66,3 +66,40 @@ src/first_window/first_window.cc
 target_link_libraries(first_window
 ${ALL_LIBS}
 )
+
+set_target_properties(first_window
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/first_window"
+)
+
+# Example 2
+add_executable(colorful_window
+src/colorful_window/colorful_window.cc
+)
+
+target_link_libraries(colorful_window
+${ALL_LIBS}
+)
+
+set_target_properties(colorful_window
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/colorful_window"
+)
+
+# Example 3
+add_executable(triangle
+src/triangle/triangle.cc
+
+src/triangle/VertexShader.vertexshader
+src/triangle/FragmentShader.fragmentshader
+)
+
+target_link_libraries(triangle
+${ALL_LIBS}
+)
+
+set_target_properties(triangle
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/triangle"
+)
+

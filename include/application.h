@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -36,6 +38,7 @@ class application {
 
     glfwMakeContextCurrent(window);
 
+    glewExperimental = GL_TRUE;
     if (glewInit() != GLEW_OK) {
       fprintf(stderr, "Failed to initialize GLEW\n");
       glfwTerminate();
@@ -44,10 +47,10 @@ class application {
 
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+    startup();
 
     do {
-      render();
+      render(glfwGetTime());
 
       glfwSwapBuffers(window);
       glfwPollEvents();
@@ -55,10 +58,13 @@ class application {
       is_run = (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS) && (glfwWindowShouldClose(window) == 0);
     } while (is_run);
 
+    shutdown();
+
+    glfwDestroyWindow(window);
     glfwTerminate();
   }
 
-  virtual void render() {}
+  virtual void render(double current_time) {}
   virtual void startup() {}
   virtual void shutdown() {}
 
