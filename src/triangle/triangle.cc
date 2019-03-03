@@ -6,6 +6,7 @@ class Triangle : public application {
   virtual void startup() override {
     rendering_program = LoadShaders("VertexShader.vertexshader", "FragmentShader.fragmentshader");
 
+    /* Create VAO and Bind to GL Context */
     glGenVertexArrays(1, &vertex_array_object);
     glBindVertexArray(vertex_array_object);
 
@@ -21,9 +22,17 @@ class Triangle : public application {
         0.0f,
     };
 
+    /* Create Buffer Name */
     glGenBuffers(1, &vertex_buffer);
+
+    /* Bind to GL Context */
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), vertex_buffer_data, GL_STATIC_DRAW);
+
+    /* Memory Alloc (Possible Data Copy) */
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertex_buffer_data), NULL, GL_STATIC_DRAW);
+
+    /* Data Copy (Not Memory Alloc) */
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertex_buffer_data), vertex_buffer_data);
   }
 
   virtual void render(double current_time) override {
