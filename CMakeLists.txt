@@ -103,3 +103,37 @@ set_target_properties(triangle
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/triangle"
 )
 
+# Example 4
+add_executable(cube
+src/cube/cube.cc
+
+src/cube/VertexShader.vertexshader
+src/cube/FragmentShader.fragmentshader
+)
+
+target_link_libraries(cube
+${ALL_LIBS}
+)
+
+set_target_properties(cube
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/cube"
+)
+
+# Example 5
+add_executable(rotating_cube
+src/rotating_cube/rotating_cube.cc
+
+src/rotating_cube/VertexShader.vertexshader
+src/rotating_cube/FragmentShader.fragmentshader
+)
+
+target_link_libraries(rotating_cube
+${ALL_LIBS}
+)
+
+set_target_properties(rotating_cube
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/rotating_cube"
+)
+
