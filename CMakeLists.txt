@@ -137,3 +137,20 @@ set_target_properties(rotating_cube
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/rotating_cube"
 )
 
+# Example 6
+add_executable(textured_cube
+src/textured_cube/textured_cube.cc
+
+src/textured_cube/VertexShader.vertexshader
+src/textured_cube/FragmentShader.fragmentshader
+)
+
+target_link_libraries(textured_cube
+${ALL_LIBS}
+)
+
+set_target_properties(textured_cube
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/textured_cube"
+)
+
