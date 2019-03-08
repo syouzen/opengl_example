@@ -154,3 +154,20 @@ set_target_properties(textured_cube
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/textured_cube"
 )
 
+# Example 7
+add_executable(model_loader
+src/model_loader/model_loader.cc
+
+src/model_loader/VertexShader.vertexshader
+src/model_loader/FragmentShader.fragmentshader
+)
+
+target_link_libraries(model_loader
+${ALL_LIBS}
+)
+
+set_target_properties(model_loader
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/model_loader"
+)
+
