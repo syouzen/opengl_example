@@ -30,8 +30,6 @@ if(INCLUDE_DISTRIB)
 	add_subdirectory(distrib)
 endif(INCLUDE_DISTRIB)
 
-
-
 include_directories(
 	external/AntTweakBar-1.16/include/
 	external/glfw-3.1.2/include/
@@ -169,5 +167,22 @@ ${ALL_LIBS}
 set_target_properties(model_loader
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/model_loader"
+)
+
+# Example 8
+add_executable(indexing_vbo
+src/indexing_vbo/indexing_vbo.cc
+
+src/indexing_vbo/VertexShader.vertexshader
+src/indexing_vbo/FragmentShader.fragmentshader
+)
+
+target_link_libraries(indexing_vbo
+${ALL_LIBS}
+)
+
+set_target_properties(indexing_vbo
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/indexing_vbo"
 )
 

@@ -2,8 +2,9 @@
 #include <objloader.h>
 #include <shader.h>
 #include <texture.h>
+#include <vboindexer.h>
 
-class ModelLoader : public application {
+class IndexingVBO : public application {
  public:
   virtual void startup() override {
     glEnable(GL_DEPTH_TEST);
@@ -11,7 +12,7 @@ class ModelLoader : public application {
 
     rendering_program = LoadShaders("VertexShader.vertexshader", "FragmentShader.fragmentshader");
 
-    bool res = loadOBJ("cube.obj", vertices, uvs, normals);
+    bool res = loadOBJ("suzanne.obj", vertices, uvs, normals);
     texture = loadDDS("uvmap.DDS");
 
     texture_id = glGetUniformLocation(rendering_program, "textureSampler");
@@ -20,19 +21,25 @@ class ModelLoader : public application {
     glGenVertexArrays(1, &vertex_array_object);
     glBindVertexArray(vertex_array_object);
 
+    indexVBO(vertices, uvs, normals, indices, indexed_vertices, indexed_uvs, indexed_normals);
+
     /* Create Buffer Name */
     glGenBuffers(1, &vertex_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(glm::vec3), &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, indexed_vertices.size() * sizeof(glm::vec3), &indexed_vertices[0], GL_STATIC_DRAW);
 
     glGenBuffers(1, &uv_buffer);
     glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
-    glBufferData(GL_ARRAY_BUFFER, uvs.size() * sizeof(glm::vec2), &uvs[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, indexed_uvs.size() * sizeof(glm::vec2), &indexed_uvs[0], GL_STATIC_DRAW);
+
+    glGenBuffers(1, &index_buffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned short), &indices[0], GL_STATIC_DRAW);
 
     matrix_id = glGetUniformLocation(rendering_program, "MVP");
 
     projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-    view = glm::lookAt(glm::vec3(4, 3, -3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    view = glm::lookAt(glm::vec3(4, 3, 0), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
   }
 
   virtual void render(double current_time) override {
@@ -59,7 +66,8 @@ class ModelLoader : public application {
     glBindBuffer(GL_ARRAY_BUFFER, uv_buffer);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3 * 12);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
+    glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_SHORT, (void*)0);
 
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
@@ -77,10 +85,16 @@ class ModelLoader : public application {
   GLuint vertex_array_object;
   GLuint vertex_buffer;
   GLuint uv_buffer;
+  GLuint index_buffer;
 
   std::vector<glm::vec3> vertices;
   std::vector<glm::vec2> uvs;
   std::vector<glm::vec3> normals;
+
+  std::vector<unsigned short> indices;
+  std::vector<glm::vec3> indexed_vertices;
+  std::vector<glm::vec2> indexed_uvs;
+  std::vector<glm::vec3> indexed_normals;
 
   GLuint texture;
   GLuint texture_id;
@@ -92,4 +106,4 @@ class ModelLoader : public application {
   glm::mat4 mvp;
 };
 
-DECLARE_MAIN(ModelLoader);
+DECLARE_MAIN(IndexingVBO);
