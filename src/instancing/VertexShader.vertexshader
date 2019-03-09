@@ -1,0 +1,14 @@
+#version 330 core
+
+// Input vertex data, different for all executions of this shader.
+layout(location = 0) in vec4 vertexPosition_modelspace;
+layout(location = 1) in vec4 vertexColor;
+layout(location = 2) in vec4 instance;
+
+out vec4 fragmentColor;
+
+void main(){
+    gl_Position = (vertexPosition_modelspace + instance) * vec4(0.25, 0.25, 1.0, 1.0); 
+    fragmentColor = vertexColor;
+}
+

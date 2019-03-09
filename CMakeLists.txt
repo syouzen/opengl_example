@@ -186,3 +186,20 @@ set_target_properties(indexing_vbo
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/indexing_vbo"
 )
 
+# Example 8
+add_executable(instancing
+src/instancing/instancing.cc
+
+src/instancing/VertexShader.vertexshader
+src/instancing/FragmentShader.fragmentshader
+)
+
+target_link_libraries(instancing
+${ALL_LIBS}
+)
+
+set_target_properties(instancing
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/instancing"
+)
+
