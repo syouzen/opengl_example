@@ -203,3 +203,22 @@ set_target_properties(instancing
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/instancing"
 )
 
+# Example 9
+add_executable(tess_mode
+src/tess_mode/tess_mode.cc
+
+src/tess_mode/VertexShader.vertexshader
+src/tess_mode/TessControlShader.tesscontrolshader
+src/tess_mode/TessEvaluationShader.tessevaluationshader
+src/tess_mode/FragmentShader.fragmentshader
+)
+
+target_link_libraries(tess_mode
+${ALL_LIBS}
+)
+
+set_target_properties(tess_mode
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/tess_mode"
+)
+

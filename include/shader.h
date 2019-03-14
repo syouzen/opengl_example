@@ -14,6 +14,19 @@ using namespace std;
 
 #include <GL/glew.h>
 
+const char* ReadShaderCode(const char* file_path) {
+  std::string ShaderCode;
+  std::ifstream ShaderStream(file_path, std::ios::in);
+  if (ShaderStream.is_open()) {
+    std::stringstream sstr;
+    sstr << ShaderStream.rdbuf();
+    ShaderCode = sstr.str();
+    ShaderStream.close();
+  }
+
+  return ShaderCode.c_str();
+}
+
 GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path) {
   // Create the shaders
   GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
