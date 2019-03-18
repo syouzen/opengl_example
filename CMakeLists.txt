@@ -222,3 +222,20 @@ set_target_properties(tess_mode
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/tess_mode"
 )
 
+# Example 10
+add_executable(geometry_tetra
+src/geometry_tetra/geometry_tetra.cc
+
+src/geometry_tetra/VertexShader.vertexshader
+src/geometry_tetra/GeometryShader.geometryshader
+src/geometry_tetra/FragmentShader.fragmentshader
+)
+
+target_link_libraries(geometry_tetra
+${ALL_LIBS}
+)
+
+set_target_properties(geometry_tetra
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/geometry_tetra"
+)

@@ -27,6 +27,33 @@ const char* ReadShaderCode(const char* file_path) {
   return ShaderCode.c_str();
 }
 
+void CompileShader(const char* file_path, GLuint shader_id) {
+  std::string ShaderCode;
+  std::ifstream ShaderStream(file_path, std::ios::in);
+  if (ShaderStream.is_open()) {
+    std::stringstream sstr;
+    sstr << ShaderStream.rdbuf();
+    ShaderCode = sstr.str();
+    ShaderStream.close();
+  }
+
+  printf("Compiling shader : %s\n", file_path);
+  char const* SourcePointer = ShaderCode.c_str();
+  glShaderSource(shader_id, 1, &SourcePointer, NULL);
+  glCompileShader(shader_id);
+
+  GLint Result = GL_FALSE;
+  int InfoLogLength;
+
+  glGetShaderiv(shader_id, GL_COMPILE_STATUS, &Result);
+  glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &InfoLogLength);
+  if (InfoLogLength > 0) {
+    std::vector<char> ShaderErrorMessage(InfoLogLength + 1);
+    glGetShaderInfoLog(shader_id, InfoLogLength, NULL, &ShaderErrorMessage[0]);
+    printf("%s\n", &ShaderErrorMessage[0]);
+  }
+}
+
 GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path) {
   // Create the shaders
   GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
