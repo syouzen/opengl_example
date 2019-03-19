@@ -1,0 +1,19 @@
+#version 410 core                                                       
+                                                                        
+out vec4 color;
+
+uniform sampler2D texture_id;
+
+uniform bool use_perspective = false;
+
+in VS_OUT
+{
+  vec2 tc;
+  noperspective vec2 tc_np;
+} fs_in;          
+                                    
+void main(void)                                                         
+{                                        
+  vec2 tc = mix(fs_in.tc_np, fs_in.tc, bvec2(use_perspective));
+  color = texture(texture_id, tc).rrrr;
+}                                                                       

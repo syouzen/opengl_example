@@ -239,3 +239,20 @@ set_target_properties(geometry_tetra
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/geometry_tetra"
 )
+
+# Example 11
+add_executable(no_perspective
+src/no_perspective/no_perspective.cc
+
+src/no_perspective/VertexShader.vertexshader
+src/no_perspective/FragmentShader.fragmentshader
+)
+
+target_link_libraries(no_perspective
+${ALL_LIBS}
+)
+
+set_target_properties(no_perspective
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/no_perspective"
+)
