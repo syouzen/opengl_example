@@ -273,3 +273,21 @@ set_target_properties(blend_matrix
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/blend_matrix"
 )
+
+# Example 13
+add_executable(framebuffer
+src/framebuffer/framebuffer.cc
+
+src/framebuffer/VertexShader.vertexshader
+src/framebuffer/FragmentShader1.fragmentshader
+src/framebuffer/FragmentShader2.fragmentshader
+)
+
+target_link_libraries(framebuffer
+${ALL_LIBS}
+)
+
+set_target_properties(framebuffer
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/framebuffer"
+)
