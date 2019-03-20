@@ -256,3 +256,20 @@ set_target_properties(no_perspective
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/no_perspective"
 )
+
+# Example 12
+add_executable(blend_matrix
+src/blend_matrix/blend_matrix.cc
+
+src/blend_matrix/VertexShader.vertexshader
+src/blend_matrix/FragmentShader.fragmentshader
+)
+
+target_link_libraries(blend_matrix
+${ALL_LIBS}
+)
+
+set_target_properties(blend_matrix
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/blend_matrix"
+)
