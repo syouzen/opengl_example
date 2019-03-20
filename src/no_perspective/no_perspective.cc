@@ -106,11 +106,11 @@ class NoPerspective : public application {
 
     float f = (float)current_time * 14.3f;
 
-    glViewport(0, 0, 1024, 768);
+    glViewport(0, 0, 2048, 1536);
     glClearBufferfv(GL_COLOR, 0, black);
     glClearBufferfv(GL_DEPTH, 0, &one);
 
-    projection = vmath::perspective(60.0f, 4.0f / 3.0f, 0.1f, 1000.0f);
+    projection = vmath::perspective(60.0f, 4.0f / 3.0f, 0.1f, 100.0f);
     mv = vmath::translate(0.0f, 0.0f, -1.5f) *
          vmath::rotate(f, 0.0f, 1.0f, 0.0f);
 

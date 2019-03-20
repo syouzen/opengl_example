@@ -63,7 +63,7 @@ class GeometryTetra : public application {
     static const GLfloat one = 1.0f;
     float f = (float)current_time;
 
-    glViewport(0, 0, 1024, 768);
+    glViewport(0, 0, 1024 * 2, 768 * 2);
     glClearBufferfv(GL_COLOR, 0, black);
     glClearBufferfv(GL_DEPTH, 0, &one);
 
