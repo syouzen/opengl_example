@@ -291,3 +291,20 @@ set_target_properties(framebuffer
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/framebuffer"
 )
+
+# Example 14
+add_executable(antialiasing
+src/antialiasing/antialiasing.cc
+
+src/antialiasing/VertexShader.vertexshader
+src/antialiasing/FragmentShader.fragmentshader
+)
+
+target_link_libraries(antialiasing
+${ALL_LIBS}
+)
+
+set_target_properties(antialiasing
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/antialiasing"
+)
